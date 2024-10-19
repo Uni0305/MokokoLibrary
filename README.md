@@ -1,6 +1,7 @@
 # MokokoLibrary 
 
 [![GitHub License](https://img.shields.io/github/license/Uni0305/MokokoLibrary?style=for-the-badge)](LICENSE.md)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Uni0305/MokokoLibrary/build.yml?style=for-the-badge)](https://github.com/Uni0305/MokokoLibrary/actions)
 [![JitPack](https://img.shields.io/jitpack/version/com.github.uni0305/MokokoLibrary?style=for-the-badge)](https://jitpack.io/#Uni0305/MokokoLibrary)
 
 A library plugin for Uni0305's plugins.
