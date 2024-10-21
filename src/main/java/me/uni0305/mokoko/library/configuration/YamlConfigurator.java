@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * This class handles the configuration of YAML files for a Bukkit plugin.
+ */
 public class YamlConfigurator {
     private final JavaPlugin plugin;
     private final String filename;
@@ -20,11 +23,20 @@ public class YamlConfigurator {
     private File file = null;
     private FileConfiguration configuration = null;
 
+    /**
+     * Constructs a new YamlConfigurator.
+     *
+     * @param plugin   the JavaPlugin instance
+     * @param filename the name of the YAML file
+     */
     public YamlConfigurator(@NotNull JavaPlugin plugin, @NotNull String filename) {
         this.plugin = plugin;
         this.filename = filename;
     }
 
+    /**
+     * Reloads the configuration from the YAML file.
+     */
     public void reloadConfig() {
         if (file == null) file = new File(plugin.getDataFolder(), filename);
         try {
@@ -50,11 +62,19 @@ public class YamlConfigurator {
         }
     }
 
+    /**
+     * Gets the configuration.
+     *
+     * @return the FileConfiguration instance
+     */
     public @NotNull FileConfiguration getConfig() {
         if (configuration == null) reloadConfig();
         return configuration;
     }
 
+    /**
+     * Saves the current configuration to the YAML file.
+     */
     public void saveConfig() {
         if (file == null || configuration == null) {
             logger.warn("Skipping config save, file or configuration is null");
@@ -69,6 +89,9 @@ public class YamlConfigurator {
         }
     }
 
+    /**
+     * Saves the default configuration to the YAML file if it does not already exist.
+     */
     public void saveDefaultConfig() {
         if (file == null) file = new File(plugin.getDataFolder(), filename);
         if (file.exists()) {

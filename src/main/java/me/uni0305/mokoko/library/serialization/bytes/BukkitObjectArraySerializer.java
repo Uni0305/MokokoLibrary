@@ -9,8 +9,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * A serializer for arrays of objects using Bukkit's object streams.
+ *
+ * @param <T> the type of the objects in the array to be serialized/deserialized
+ */
 public class BukkitObjectArraySerializer<T> implements ByteArraySerializer<T[]> {
 
+    /**
+     * Serializes an array of objects to a byte array using Bukkit's object output stream.
+     *
+     * @param array the array of objects to serialize
+     * @return the byte array representation of the serialized array
+     * @throws RuntimeException if an I/O error occurs during serialization
+     */
     @Override
     public byte @NotNull [] serialize(T @NotNull [] array) {
         try (ByteArrayOutputStream output = new ByteArrayOutputStream(); BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(output)) {
@@ -24,6 +36,13 @@ public class BukkitObjectArraySerializer<T> implements ByteArraySerializer<T[]> 
         }
     }
 
+    /**
+     * Deserializes an array of objects from a byte array using Bukkit's object input stream.
+     *
+     * @param bytes the byte array to deserialize
+     * @return the deserialized array of objects, or null if deserialization fails
+     * @throws RuntimeException if an I/O error or class not found exception occurs during deserialization
+     */
     @SuppressWarnings("unchecked")
     @Override
     public T @Nullable [] deserialize(byte @NotNull [] bytes) {

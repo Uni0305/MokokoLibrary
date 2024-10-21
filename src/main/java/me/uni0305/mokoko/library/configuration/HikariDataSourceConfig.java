@@ -10,12 +10,21 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 
+/**
+ * Configuration class for setting up and managing a HikariCP data source.
+ */
 public class HikariDataSourceConfig {
     private final HikariConfig config;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private HikariDataSource dataSource = null;
 
+    /**
+     * Constructs a new HikariDataSourceConfig with the specified configuration.
+     *
+     * @param configuration the configuration to use for setting up the data source
+     * @throws IllegalArgumentException if the database configuration section is not found
+     */
     public HikariDataSourceConfig(@NotNull FileConfiguration configuration) throws IllegalArgumentException {
         ConfigurationSection section = configuration.getConfigurationSection("database");
         if (section == null) throw new IllegalArgumentException("Database configuration not found.");
@@ -35,6 +44,9 @@ public class HikariDataSourceConfig {
         this.config = config;
     }
 
+    /**
+     * Initializes the HikariCP data source.
+     */
     public void start() {
         try {
             dataSource = new HikariDataSource(config);
@@ -44,6 +56,9 @@ public class HikariDataSourceConfig {
         }
     }
 
+    /**
+     * Shuts down the HikariCP data source.
+     */
     public void shutdown() {
         if (dataSource == null) return;
         try {
@@ -54,6 +69,12 @@ public class HikariDataSourceConfig {
         }
     }
 
+    /**
+     * Retrieves a connection from the HikariCP data source.
+     *
+     * @return a connection from the data source
+     * @throws Exception if the data source is not initialized or a connection cannot be retrieved
+     */
     public @NotNull Connection getConnection() throws Exception {
         if (dataSource == null) throw new IllegalStateException("HikariCP is not initialized.");
         return dataSource.getConnection();
