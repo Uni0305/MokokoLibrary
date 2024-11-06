@@ -19,13 +19,18 @@ public class MokokoLibraryPlugin extends JavaPlugin {
         yamlConfigurator.saveDefaultConfig();
         yamlConfigurator.reloadConfig();
 
-        ConfigurationSection databaseConfig = yamlConfigurator.getConfig().getConfigurationSection("database");
-        if (databaseConfig == null) {
-            getSLF4JLogger().warn("Database configuration not found, skipping HikariCP initialization.");
-        } else {
+        if (yamlConfigurator.getConfig().contains("database", true)) {
+            ConfigurationSection config = yamlConfigurator.getConfig().getConfigurationSection("database");
+            if (config == null) {
+                getSLF4JLogger().error("Database configuration is invalid, skipping HikariCP initialization.");
+                return;
+            }
+
             getSLF4JLogger().info("Database configuration found, initializing HikariCP...");
-            hikariDataSourceConfig = new HikariDataSourceConfig(databaseConfig);
+            hikariDataSourceConfig = new HikariDataSourceConfig(config);
             hikariDataSourceConfig.start();
+        } else {
+            getSLF4JLogger().warn("Database configuration not found, skipping HikariCP initialization.");
         }
     }
 
