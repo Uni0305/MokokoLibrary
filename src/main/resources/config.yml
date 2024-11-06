@@ -4,5 +4,5 @@ database:
   database: minecraft
   username: root
   password: example
-  properties:
+  properties: # https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
     maximum-pool-size: 10
