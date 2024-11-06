@@ -3,12 +3,13 @@ package me.uni0305.mokoko.library.configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Configuration class for setting up and managing a HikariCP data source.
@@ -31,13 +32,18 @@ public class HikariDataSourceConfig {
         String database = configuration.getString("database", "minecraft");
         String username = configuration.getString("username", "root");
         String password = configuration.getString("password", "example");
-        int maximumPoolSize = configuration.getInt("maximum-pool-size", 10);
 
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mariadb://" + host + ":" + port + "/" + database);
+        Properties properties = new Properties();
+        ConfigurationSection propertiesConfig = configuration.getConfigurationSection("properties");
+        if (propertiesConfig != null) {
+            Map<String, Object> values = propertiesConfig.getValues(false);
+            properties.putAll(values);
+        }
+
+        HikariConfig config = new HikariConfig(properties);
+        config.setJdbcUrl("jdbc:mariadb://%s:%d/%s".formatted(host, port, database));
         config.setUsername(username);
         config.setPassword(password);
-        config.setMaximumPoolSize(maximumPoolSize);
         this.config = config;
     }
 

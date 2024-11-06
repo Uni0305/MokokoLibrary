@@ -4,4 +4,5 @@ database:
   database: minecraft
   username: root
   password: example
-  maximum-pool-size: 10
+  properties:
+    maximum-pool-size: 10
