@@ -25,16 +25,13 @@ public class HikariDataSourceConfig {
      * @param configuration the configuration to use for setting up the data source
      * @throws IllegalArgumentException if the database configuration section is not found
      */
-    public HikariDataSourceConfig(@NotNull FileConfiguration configuration) throws IllegalArgumentException {
-        ConfigurationSection section = configuration.getConfigurationSection("database");
-        if (section == null) throw new IllegalArgumentException("Database configuration not found.");
-
-        String host = section.getString("host", "localhost");
-        int port = section.getInt("port", 3306);
-        String database = section.getString("database", "minecraft");
-        String username = section.getString("username", "root");
-        String password = section.getString("password", "example");
-        int maximumPoolSize = section.getInt("maximum-pool-size", 10);
+    public HikariDataSourceConfig(@NotNull ConfigurationSection configuration) throws IllegalArgumentException {
+        String host = configuration.getString("host", "localhost");
+        int port = configuration.getInt("port", 3306);
+        String database = configuration.getString("database", "minecraft");
+        String username = configuration.getString("username", "root");
+        String password = configuration.getString("password", "example");
+        int maximumPoolSize = configuration.getInt("maximum-pool-size", 10);
 
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mariadb://" + host + ":" + port + "/" + database);
