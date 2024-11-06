@@ -16,6 +16,8 @@ public class MokokoLibraryPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         yamlConfigurator = new YamlConfigurator(this, "config.yml");
+        yamlConfigurator.saveDefaultConfig();
+        yamlConfigurator.reloadConfig();
 
         ConfigurationSection databaseConfig = yamlConfigurator.getConfig().getConfigurationSection("database");
         if (databaseConfig == null) {
