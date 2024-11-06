@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
+import org.mariadb.jdbc.Driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,7 @@ public class HikariDataSourceConfig {
         }
 
         HikariConfig config = new HikariConfig(properties);
+        config.setDriverClassName(Driver.class.getName());
         config.setJdbcUrl("jdbc:mariadb://%s:%d/%s".formatted(host, port, database));
         config.setUsername(username);
         config.setPassword(password);
