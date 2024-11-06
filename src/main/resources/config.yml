@@ -5,4 +5,4 @@ database:
   username: root
   password: example
   properties: # https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
-    maximum-pool-size: 10
+    maximumPoolSize: 10
