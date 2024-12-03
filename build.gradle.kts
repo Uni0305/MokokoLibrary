@@ -14,10 +14,12 @@ version = "0.1.7"
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.codemc.io/repository/maven-public/")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("de.tr7zw:item-nbt-api-plugin:2.14.0")
     compileOnly("com.google.code.gson:gson:2.11.0")
     compileOnly("com.zaxxer:HikariCP:6.0.0")
     compileOnly("org.mariadb.jdbc:mariadb-java-client:3.4.1")
@@ -37,6 +39,7 @@ bukkitPluginYaml {
     apiVersion = "1.20"
     author = "Uni0305"
     description = "A library plugin for Uni0305's plugins."
+    depend = listOf("NBTAPI")
     libraries = listOf(
         "com.google.code.gson:gson:2.11.0",
         "com.zaxxer:HikariCP:6.0.0",
