@@ -64,7 +64,7 @@ tasks.runServer {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            from(components["shadow"])
+            from(components["java"])
         }
     }
 }
