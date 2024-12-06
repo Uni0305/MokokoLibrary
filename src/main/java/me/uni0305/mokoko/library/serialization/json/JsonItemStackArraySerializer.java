@@ -1,32 +1,35 @@
 package me.uni0305.mokoko.library.serialization.json;
 
-import com.google.gson.JsonArray;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.iface.ReadWriteNBT;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class JsonItemStackArraySerializer implements JsonSerializer<ItemStack[]> {
-    private final JsonItemStackSerializer serializer = new JsonItemStackSerializer();
+    private final Gson gson = new Gson();
 
     @Override
-    public @NotNull JsonElement serialize(ItemStack @NotNull [] items) {
-        JsonArray array = new JsonArray();
-        for (ItemStack item : items) {
-            JsonElement element = serializer.serialize(item);
-            array.add(element);
+    public @NotNull JsonElement serialize(@Nullable ItemStack @NotNull [] obj) throws RuntimeException {
+        try {
+            ReadWriteNBT nbt = NBT.itemStackArrayToNBT(obj);
+            String json = nbt.toString();
+            return gson.toJsonTree(json);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return array;
     }
 
     @Override
-    public ItemStack @NotNull [] deserialize(@NotNull JsonElement json) {
-        JsonArray array = json.getAsJsonArray();
-        int length = array.size();
-        ItemStack[] items = new ItemStack[length];
-        for (int i = 0; i < length; i++) {
-            JsonElement element = array.get(i);
-            items[i] = serializer.deserialize(element);
+    public @Nullable ItemStack @Nullable [] deserialize(@NotNull JsonElement src) throws RuntimeException {
+        try {
+            String json = src.toString();
+            ReadWriteNBT nbt = NBT.parseNBT(json);
+            return NBT.itemStackArrayFromNBT(nbt);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return items;
     }
 }
