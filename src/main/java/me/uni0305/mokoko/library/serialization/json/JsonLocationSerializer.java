@@ -12,15 +12,24 @@ public class JsonLocationSerializer implements JsonSerializer<Location> {
     private final Gson gson = new Gson();
 
     @Override
-    public @NotNull JsonElement serialize(@NotNull Location obj) {
-        Map<String, Object> map = obj.serialize();
-        return gson.toJsonTree(map);
+    public @NotNull JsonElement serialize(@NotNull Location obj) throws RuntimeException {
+        try {
+            Map<String, Object> map = obj.serialize();
+            return gson.toJsonTree(map);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public @NotNull Location deserialize(@NotNull JsonElement src) throws IllegalArgumentException {
-        TypeToken<Map<String, Object>> type = new TypeToken<>() {};
-        Map<String, Object> map = gson.fromJson(src, type);
-        return Location.deserialize(map);
+    public @NotNull Location deserialize(@NotNull JsonElement src) throws RuntimeException {
+        try {
+            TypeToken<Map<String, Object>> type = new TypeToken<>() {
+            };
+            Map<String, Object> map = gson.fromJson(src, type);
+            return Location.deserialize(map);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
