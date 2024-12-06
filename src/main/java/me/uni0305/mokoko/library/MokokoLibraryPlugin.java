@@ -1,5 +1,6 @@
 package me.uni0305.mokoko.library;
 
+import de.tr7zw.changeme.nbtapi.NBT;
 import lombok.Getter;
 import me.uni0305.mokoko.library.configuration.HikariDataSourceConfig;
 import me.uni0305.mokoko.library.configuration.YamlConfigurator;
@@ -18,6 +19,12 @@ public class MokokoLibraryPlugin extends JavaPlugin {
         yamlConfigurator = new YamlConfigurator(this, "config.yml");
         yamlConfigurator.saveDefaultConfig();
         yamlConfigurator.reloadConfig();
+
+        if (!NBT.preloadApi()) {
+            getLogger().warning("NBT-API wasn't initialized properly, disabling the plugin");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         if (yamlConfigurator.getConfig().contains("database", true)) {
             ConfigurationSection config = yamlConfigurator.getConfig().getConfigurationSection("database");
