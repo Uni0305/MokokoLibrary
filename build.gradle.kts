@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
     id("co.uzzu.dotenv.gradle") version "4.0.0"
     id("com.gradleup.shadow") version "8.3.5"
-    id("io.freefair.lombok") version "8.10.2"
+    id("io.freefair.lombok") version "8.11"
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
