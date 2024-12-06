@@ -12,7 +12,7 @@ public class JsonItemStackSerializer implements JsonSerializer<ItemStack> {
     private final Gson gson = new Gson();
 
     @Override
-    public @NotNull JsonElement serialize(@NotNull ItemStack obj) {
+    public @NotNull JsonElement serialize(@NotNull ItemStack obj) throws RuntimeException {
         try {
             ReadWriteNBT nbt = NBT.itemStackToNBT(obj);
             String json = nbt.toString();
