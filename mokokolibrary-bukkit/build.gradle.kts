@@ -32,6 +32,10 @@ bukkitPluginYaml {
     description = "A library plugin for Uni0305's plugins."
 }
 
+tasks.runServer {
+    minecraftVersion("1.20.4")
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
