@@ -1,69 +1,43 @@
 plugins {
-    id("idea")
-    id("java")
-    id("maven-publish")
-    id("co.uzzu.dotenv.gradle") version "4.0.0"
-    id("io.freefair.lombok") version "8.10.2"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.11"
-    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    `java-library`
+    id("com.gradleup.shadow") version "8.3.5"
 }
 
 group = "me.uni0305"
 version = "0.1.7"
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
-    compileOnly("com.google.code.gson:gson:2.11.0")
-    compileOnly("com.zaxxer:HikariCP:6.0.0")
-    compileOnly("org.mariadb.jdbc:mariadb-java-client:3.4.1")
+    implementation(project(":mokokolibrary-bukkit", "shadow"))
 }
 
-idea {
-    module.isDownloadJavadoc = true
-    module.isDownloadSources = true
+tasks.shadowJar {
+    archiveClassifier = ""
 }
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+allprojects {
+    apply {
+        plugin("java")
+        plugin("com.gradleup.shadow")
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    }
+
+    tasks.shadowJar {
+        exclude("META-INF/**")
+    }
 }
 
-bukkitPluginYaml {
-    main = "me.uni0305.mokoko.library.MokokoLibraryPlugin"
-    apiVersion = "1.20"
-    author = "Uni0305"
-    description = "A library plugin for Uni0305's plugins."
-    libraries = listOf(
-        "com.google.code.gson:gson:2.11.0",
-        "com.zaxxer:HikariCP:6.0.0",
-        "org.mariadb.jdbc:mariadb-java-client:3.4.1"
-    )
-}
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
 
-tasks.assemble {
-    dependsOn(tasks.reobfJar)
-}
-
-tasks.reobfJar {
-    if (env.isPresent("JAR_DIR"))
-        outputJar = File(env.fetch("JAR_DIR"), "${project.name}-${project.version}.jar")
-}
-
-tasks.runServer {
-    minecraftVersion("1.20.4")
-    if (env.isPresent("SERVER_JAR"))
-        serverJar(file(env.fetch("SERVER_JAR")))
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-            artifact(tasks.reobfJar)
-        }
+    tasks.shadowJar {
+        minimize()
     }
 }
