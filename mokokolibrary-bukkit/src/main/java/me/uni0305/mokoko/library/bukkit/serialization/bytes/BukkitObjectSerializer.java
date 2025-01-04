@@ -1,5 +1,6 @@
-package me.uni0305.mokoko.library.serialization.bytes;
+package me.uni0305.mokoko.library.bukkit.serialization.bytes;
 
+import me.uni0305.mokoko.library.common.ByteArraySerializer;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.jetbrains.annotations.NotNull;

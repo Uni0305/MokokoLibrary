@@ -1,4 +1,4 @@
-package me.uni0305.mokoko.library.configuration;
+package me.uni0305.mokoko.library.bukkit.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

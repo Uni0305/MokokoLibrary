@@ -1,6 +1,5 @@
-package me.uni0305.mokoko.library.serialization.bytes;
+package me.uni0305.mokoko.library.common;
 
-import me.uni0305.mokoko.library.serialization.DataSerializer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

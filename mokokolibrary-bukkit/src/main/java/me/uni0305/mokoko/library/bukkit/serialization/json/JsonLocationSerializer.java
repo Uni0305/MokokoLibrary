@@ -1,8 +1,9 @@
-package me.uni0305.mokoko.library.serialization.json;
+package me.uni0305.mokoko.library.bukkit.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import me.uni0305.mokoko.library.common.JsonSerializer;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 

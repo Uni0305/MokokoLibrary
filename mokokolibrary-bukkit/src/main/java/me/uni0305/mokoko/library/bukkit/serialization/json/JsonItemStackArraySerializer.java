@@ -1,7 +1,8 @@
-package me.uni0305.mokoko.library.serialization.json;
+package me.uni0305.mokoko.library.bukkit.serialization.json;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import me.uni0305.mokoko.library.common.JsonSerializer;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

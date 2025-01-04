@@ -1,8 +1,8 @@
-package me.uni0305.mokoko.library;
+package me.uni0305.mokoko.library.bukkit;
 
 import lombok.Getter;
-import me.uni0305.mokoko.library.configuration.HikariDataSourceConfig;
-import me.uni0305.mokoko.library.configuration.YamlConfigurator;
+import me.uni0305.mokoko.library.bukkit.configuration.HikariDataSourceConfig;
+import me.uni0305.mokoko.library.bukkit.configuration.YamlConfigurator;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 

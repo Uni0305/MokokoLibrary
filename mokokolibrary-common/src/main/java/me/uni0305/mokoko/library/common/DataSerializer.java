@@ -1,4 +1,4 @@
-package me.uni0305.mokoko.library.serialization;
+package me.uni0305.mokoko.library.common;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
