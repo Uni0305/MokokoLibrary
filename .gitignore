@@ -139,7 +139,7 @@ gradle-app.setting
 .classpath
 
 # jpenilla/run-task
-run/
+**/run/
 
 ### Gradle Patch ###
 # Java heap dump
