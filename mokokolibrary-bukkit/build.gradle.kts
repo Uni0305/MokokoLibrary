@@ -25,6 +25,7 @@ dependencies {
 }
 
 bukkitPluginYaml {
+    name = rootProject.name
     main = "me.uni0305.mokoko.library.bukkit.MokokoLibraryPlugin"
     apiVersion = "1.20"
     author = "Uni0305"
