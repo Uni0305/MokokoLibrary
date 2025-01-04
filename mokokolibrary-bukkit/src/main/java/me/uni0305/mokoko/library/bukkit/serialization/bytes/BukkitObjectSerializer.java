@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * A serializer for objects using Bukkit's object streams.
@@ -25,11 +24,11 @@ public class BukkitObjectSerializer<T> implements ByteArraySerializer<T> {
      * @throws RuntimeException if an I/O error occurs during serialization
      */
     @Override
-    public byte @NotNull [] serialize(@NotNull T obj) {
+    public byte @NotNull [] serialize(@NotNull T obj) throws RuntimeException {
         try (ByteArrayOutputStream output = new ByteArrayOutputStream(); BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(output)) {
             dataOutput.writeObject(obj);
             return output.toByteArray();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -43,10 +42,10 @@ public class BukkitObjectSerializer<T> implements ByteArraySerializer<T> {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public @Nullable T deserialize(byte @NotNull [] src) {
+    public @Nullable T deserialize(byte @NotNull [] src) throws RuntimeException {
         try (ByteArrayInputStream input = new ByteArrayInputStream(src); BukkitObjectInputStream dataInput = new BukkitObjectInputStream(input)) {
             return (T) dataInput.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class JsonItemStackSerializer implements JsonSerializer<ItemStack> {
     private final JsonSerializer<ItemStack> serializer;
 
-    public JsonItemStackSerializer() {
+    public JsonItemStackSerializer() throws UnsupportedOperationException {
         String minecraftVersion = Bukkit.getMinecraftVersion();
         switch (minecraftVersion) {
             case "1.19.4" -> serializer = new me.uni0305.mokoko.library.nms.v1_19_r3.JsonItemStackSerializer();
@@ -26,12 +26,20 @@ public class JsonItemStackSerializer implements JsonSerializer<ItemStack> {
     }
 
     @Override
-    public @NotNull JsonElement serialize(@NotNull ItemStack obj) {
-        return serializer.serialize(obj);
+    public @NotNull JsonElement serialize(@NotNull ItemStack obj) throws RuntimeException {
+        try {
+            return serializer.serialize(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public @Nullable ItemStack deserialize(@NotNull JsonElement src) {
-        return serializer.deserialize(src);
+    public @Nullable ItemStack deserialize(@NotNull JsonElement src) throws RuntimeException {
+        try {
+            return serializer.deserialize(src);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * A serializer for arrays of objects using Bukkit's object streams.
@@ -25,14 +24,14 @@ public class BukkitObjectArraySerializer<T> implements ByteArraySerializer<T[]> 
      * @throws RuntimeException if an I/O error occurs during serialization
      */
     @Override
-    public byte @NotNull [] serialize(T @NotNull [] array) {
+    public byte @NotNull [] serialize(T @NotNull [] array) throws RuntimeException {
         try (ByteArrayOutputStream output = new ByteArrayOutputStream(); BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(output)) {
             dataOutput.writeInt(array.length);
             for (T element : array) {
                 dataOutput.writeObject(element);
             }
             return output.toByteArray();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -46,7 +45,7 @@ public class BukkitObjectArraySerializer<T> implements ByteArraySerializer<T[]> 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public T @Nullable [] deserialize(byte @NotNull [] bytes) {
+    public T @Nullable [] deserialize(byte @NotNull [] bytes) throws RuntimeException {
         try (ByteArrayInputStream input = new ByteArrayInputStream(bytes); BukkitObjectInputStream dataInput = new BukkitObjectInputStream(input)) {
             int length = dataInput.readInt();
             T[] array = (T[]) new Object[length];
@@ -54,7 +53,7 @@ public class BukkitObjectArraySerializer<T> implements ByteArraySerializer<T[]> 
                 array[i] = (T) dataInput.readObject();
             }
             return array;
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
