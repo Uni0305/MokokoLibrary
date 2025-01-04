@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    id("co.uzzu.dotenv.gradle") version "4.0.0"
     id("com.gradleup.shadow") version "8.3.5"
 }
 
@@ -12,6 +13,8 @@ dependencies {
 
 tasks.shadowJar {
     archiveClassifier = ""
+    if (env.isPresent("JAR_DIR"))
+        destinationDirectory.set(file(env.fetch("JAR_DIR")))
 }
 
 allprojects {
